@@ -1,0 +1,29 @@
+Go to Kafka Directory and execute below commands:
+
+--Start Zookeeper
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+--Start Kafka
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+
+-- While downloading Spring Kafka Dependency - you may get below error:
+SNAPSHOT: Failed to collect dependencies at org.springframework.kafka:spring-kafka:jar:2.2.6.RELEASE: Failed to read artifact descriptor for org.spring
+framework.kafka:spring-kafka:jar:2.2.6.RELEASE: Could not transfer artifact org.springframework.kafka:spring-kafka:pom:2.2.6.RELEASE from/to central (
+https://repo.maven.apache.org/maven2): repo.maven.apache.org: Unknown host repo.maven.apache.org -> [Help 1]
+
+Solution : Search JRE in IDE settings and add below VM argument:
+			-Dhttps.protocols=TLSv1.2
+Then right click on Maven and reimport. It will add the dependencies to the project
+
+
+-- Create topic in Kafka
+.\bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic java_in_use_topic
+
+-- Start consumer to listen above topic
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic java_in_use_topic --from-beginning
+
+Run Spring Boot application which will be acting as Spring Producer and will send message to topic.
+Consumer will read the message on that topic and will be seen on command prompt of consumer.
+
+
