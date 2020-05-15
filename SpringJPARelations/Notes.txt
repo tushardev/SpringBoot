@@ -1,0 +1,8 @@
+For Many to Many relationship
+We have added @JoinTable annotation in Musician class and reference in CD table using mapped by.
+
+We can do the reverse as well - add @JoinTable annotation in CD table and reference in Musician table using mapped by.
+
+
+For One To Many relation:
+The entity which has @JoinColumn annotation is owner of the relationship and other side used mapped by for reference.
